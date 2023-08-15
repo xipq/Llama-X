@@ -1,7 +1,10 @@
+source deactivate
+conda activate llamax
+
 deepspeed train_wizard.py \
-    --model_name_or_path /path/to/llama-7B/hf \
-    --data_path /path/to/alpaca_evol_instruct_70k.json \
-    --output_dir /path/to/wizardlm-7B/hf/ft \
+    --model_name_or_path $HOME/llama/7B_converted \
+    --data_path data/wizard_subset.json \
+    --output_dir $HOME/llama/wizard_subset \
     --num_train_epochs 3 \
     --model_max_length 2048 \
     --per_device_train_batch_size 8 \
@@ -17,5 +20,7 @@ deepspeed train_wizard.py \
     --lr_scheduler_type "cosine" \
     --report_to "tensorboard" \
     --gradient_checkpointing True \
-    --deepspeed configs/deepspeed_config.json \
+    --deepspeed src/configs/deepspeed_config.json \
     --fp16 True
+
+python $HOME/gpuserver-hacker/src/train.py --gpu_devices 0 1 2 3 4 5 6 7

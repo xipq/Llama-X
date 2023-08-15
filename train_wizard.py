@@ -22,7 +22,7 @@ import transformers
 from torch.utils.data import Dataset
 from transformers import Trainer
 
-import utils
+import src.utils as utils
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
